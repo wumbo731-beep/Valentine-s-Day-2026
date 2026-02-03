@@ -1,147 +1,198 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Be My Valentine 💖</title>
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      background: linear-gradient(135deg, #ffd6e8, #ffeaf4);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: 'Comic Sans MS', cursive, sans-serif;
-      overflow: hidden;
-    }
+<meta charset="UTF-8">
+<title>Be My Valentine 💖</title>
 
-    .card {
-      background: white;
-      padding: 30px;
-      border-radius: 25px;
-      text-align: center;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-    }
+<style>
+  * {
+    box-sizing: border-box;
+  }
 
-    img {
-      width: 200px;
-      border-radius: 20px;
-      margin-bottom: 20px;
-    }
+  body {
+    margin: 0;
+    height: 100vh;
+    background: radial-gradient(circle at top, #ffe6f0, #ffd1e6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Poppins', 'Segoe UI', sans-serif;
+    overflow: hidden;
+  }
 
-    h1 {
-      color: #ff4d88;
-      margin-bottom: 30px;
-    }
+  /* Ambient floating glow */
+  body::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle, rgba(255,255,255,0.3) 10%, transparent 40%);
+    animation: glow 8s infinite alternate;
+  }
 
-    .buttons {
-      position: relative;
-      height: 80px;
-    }
+  @keyframes glow {
+    from { opacity: 0.4; }
+    to { opacity: 0.8; }
+  }
 
-    button {
-      padding: 12px 25px;
-      font-size: 18px;
-      border: none;
-      border-radius: 30px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
+  .card {
+    position: relative;
+    background: rgba(255,255,255,0.9);
+    padding: 35px 30px 40px;
+    border-radius: 28px;
+    text-align: center;
+    width: 340px;
+    box-shadow: 0 30px 60px rgba(255,77,136,0.25);
+    animation: entrance 1s ease forwards;
+    z-index: 1;
+  }
 
-    #yes {
-      background-color: #ff4d88;
-      color: white;
-      margin-right: 20px;
+  @keyframes entrance {
+    from {
+      opacity: 0;
+      transform: translateY(40px) scale(0.95);
     }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
 
-    #no {
-      background-color: #ccc;
-      color: #333;
-      position: absolute;
-    }
+  img {
+    width: 190px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+  }
 
-    .hidden {
-      display: none;
-    }
+  h1 {
+    color: #ff4d88;
+    font-weight: 600;
+    margin-bottom: 28px;
+  }
 
-    .surprise {
-      font-size: 28px;
-      color: #ff4d88;
-      margin-top: 20px;
-      animation: pop 0.6s ease-in-out;
-    }
+  .buttons {
+    position: relative;
+    height: 90px;
+  }
 
-    @keyframes pop {
-      0% { transform: scale(0.5); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
-    }
+  button {
+    padding: 12px 26px;
+    font-size: 17px;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
 
-    .heart {
-      position: absolute;
-      font-size: 24px;
-      animation: float 4s linear infinite;
-    }
+  #yes {
+    background: linear-gradient(135deg, #ff4d88, #ff85b3);
+    color: white;
+    box-shadow: 0 10px 20px rgba(255,77,136,0.4);
+  }
 
-    @keyframes float {
-      0% {
-        transform: translateY(0);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-100vh);
-        opacity: 0;
-      }
+  #yes:hover {
+    transform: scale(1.07);
+  }
+
+  #no {
+    background: #e0e0e0;
+    color: #555;
+    position: absolute;
+    left: 120px;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .surprise {
+    margin-top: 25px;
+    font-size: 26px;
+    color: #ff4d88;
+    font-weight: 600;
+    animation: pop 0.7s ease;
+  }
+
+  @keyframes pop {
+    0% { transform: scale(0.6); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  /* Floating hearts */
+  .heart {
+    position: absolute;
+    bottom: -20px;
+    font-size: 22px;
+    animation: floatUp linear forwards;
+    pointer-events: none;
+  }
+
+  @keyframes floatUp {
+    from {
+      transform: translateY(0) scale(1);
+      opacity: 1;
     }
-  </style>
+    to {
+      transform: translateY(-100vh) scale(1.4);
+      opacity: 0;
+    }
+  }
+
+</style>
 </head>
 <body>
 
-  <div class="card">
-    <img src="https://png.pngtree.com/png-clipart/20230313/original/pngtree-boy-and-girl-couple-back-hug-kiss-looks-cute-png-image_8985615.png" alt="Cute Image">
-    <h1>Can you be my Valentine? 💕</h1>
+<div class="card" id="card">
+  <img src="https://i.imgur.com/6M513bR.png" alt="Cute">
 
-    <div class="buttons">
-      <button id="yes">YES 💖</button>
-      <button id="no">NO 🙄</button>
-    </div>
+  <h1 id="question">Can you be my Valentine? 💕</h1>
 
-    <div id="surprise" class="surprise hidden">
-      YAY!! 💘 I knew it!!! 🥰💐
-    </div>
+  <div class="buttons" id="buttons">
+    <button id="yes">YES 💖</button>
+    <button id="no">NO 🙃</button>
   </div>
 
-  <script>
-    const noBtn = document.getElementById("no");
-    const yesBtn = document.getElementById("yes");
-    const surprise = document.getElementById("surprise");
+  <div id="surprise" class="surprise hidden">
+    You just made my heart very happy 💘✨
+  </div>
+</div>
 
-    noBtn.addEventListener("mouseover", () => {
-      const x = Math.random() * 300 - 150;
-      const y = Math.random() * 200 - 100;
-      noBtn.style.transform = `translate(${x}px, ${y}px)`;
-    });
+<script>
+  const noBtn = document.getElementById("no");
+  const yesBtn = document.getElementById("yes");
+  const buttons = document.getElementById("buttons");
+  const surprise = document.getElementById("surprise");
+  const question = document.getElementById("question");
 
-    yesBtn.addEventListener("click", () => {
-      surprise.classList.remove("hidden");
-      createHearts();
-    });
+  let escapeLevel = 1;
 
-    function createHearts() {
-      for (let i = 0; i < 20; i++) {
-        const heart = document.createElement("div");
-        heart.className = "heart";
-        heart.innerText = "💖";
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.bottom = "-20px";
-        heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
-        document.body.appendChild(heart);
+  noBtn.addEventListener("mouseover", () => {
+    const x = Math.random() * 120 * escapeLevel - 60;
+    const y = Math.random() * 90 * escapeLevel - 45;
+    noBtn.style.transform = `translate(${x}px, ${y}px)`;
+    escapeLevel += 0.15;
+  });
 
-        setTimeout(() => {
-          heart.remove();
-        }, 5000);
-      }
+  yesBtn.addEventListener("click", () => {
+    buttons.classList.add("hidden");
+    question.textContent = "YAY!!! 💕";
+    surprise.classList.remove("hidden");
+    launchHearts();
+  });
+
+  function launchHearts() {
+    for (let i = 0; i < 30; i++) {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerText = "💖";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = Math.random() * 2 + 3 + "s";
+      document.body.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 5000);
     }
-  </script>
+  }
+</script>
 
 </body>
 </html>
